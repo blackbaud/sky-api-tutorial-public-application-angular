@@ -1,0 +1,84 @@
+import { HttpErrorResponse } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { SkyWaitService } from '@skyux/indicators';
+import { catchError, finalize, retry } from 'rxjs';
+import { AccessToken } from '../shared/models/access_token';
+import { Constituent } from '../shared/models/constituent';
+import { AuthorizationService } from '../shared/services/authorization.service';
+import { ConstituentService } from '../shared/services/constituent.service';
+
+@Component({
+  selector: 'app-home',
+  templateUrl: './home.component.html',
+})
+export class HomeComponent implements OnInit {
+  public constituent: Constituent | undefined;
+  private constituentId: string = '280';
+
+  constructor(
+    private authorizationService: AuthorizationService,
+    private constituentService: ConstituentService,
+    private waitService: SkyWaitService
+  ) {}
+
+  public ngOnInit(): void {
+    this.authorizationService.clearExpiredTokens();
+
+    if (!this.hasAccessToken) {
+      if (!!this.accessTokens && !!this.accessTokens[0]) {
+        this.useAccessToken(this.accessTokens[0]);
+      }
+    }
+
+    if (this.hasAccessToken) {
+      this.loadConstituent();
+    }
+  }
+
+  public newAccessToken(): void {
+    this.authorizationService.authorize();
+  }
+
+  public get accessTokens(): AccessToken[] {    
+    return this.authorizationService.accessTokens.tokens.filter(token => token.expires > new Date().toUTCString());
+  }
+
+  public useAccessToken(token: AccessToken) {
+    this.authorizationService.accessToken = token;
+    this.loadConstituent();
+  }
+
+  public clearAccessTokens(): void {
+    this.authorizationService.accessTokens = null;
+    this.authorizationService.accessToken = null;
+    this.authorizationService.authorize();
+  }
+
+  public get hasAccessToken(): boolean {
+    return this.authorizationService.hasAccessToken;
+  }
+
+  public isSelectedToken(token: string): boolean {
+    return token == this.authorizationService.accessToken?.access_token;
+  }
+
+  private loadConstituent() {
+    this.waitService.beginBlockingPageWait();
+    this.constituentService.getConstituent(this.constituentId).pipe(
+      finalize(() => {
+        this.waitService.endBlockingPageWait();
+      }),
+      retry(1),
+      catchError((err, caught) => {
+        if (err instanceof HttpErrorResponse && err.status === 401) {
+          if (!!this.authorizationService.accessToken) {
+            this.authorizationService.removeAccessToken(this.authorizationService.accessToken);
+          }
+          this.authorizationService.accessToken = null;
+          this.authorizationService.authorize();
+        }
+        return caught;
+      })
+    ).subscribe(constituent => this.constituent = constituent);
+  }
+}

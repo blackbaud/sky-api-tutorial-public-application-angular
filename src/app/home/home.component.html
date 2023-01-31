@@ -1,0 +1,57 @@
+<h1>Public application using the SKY Developer Platform</h1>
+<p>
+  This application demonstrates an Angular application that uses SKY UX and SKY
+  API to display constituent data. Authorization with SKY API uses OAuth2
+  Authorization Code flow with Proof Key for Code Exchange (PKCE) to avoid the
+  need to store a SKY Application client secret in a public application.
+</p>
+
+<p>
+  Access tokens expire after one hour. The end user will be forced to reauthorize to gain a new access token. 
+</p>
+<sky-toolbar>
+  <sky-toolbar-section>
+    <sky-toolbar-item>
+      <span>Actions: </span>
+    </sky-toolbar-item>
+    <sky-toolbar-item>
+      <button
+        class="sky-btn sky-btn-primary"
+        type="button"
+        (click)="newAccessToken()"
+      >
+        <sky-icon icon="plus" class="sky-margin-inline-sm"></sky-icon>
+        <span>New access token</span>
+      </button>
+    </sky-toolbar-item>
+    <sky-toolbar-item>
+      <button
+        class="sky-btn sky-btn-default"
+        type="button"
+        (click)="clearAccessTokens()"
+      >
+        <sky-icon icon="trash" class="sky-margin-inline-sm"></sky-icon>
+
+        <span>Clear access tokens</span>
+      </button>
+    </sky-toolbar-item>
+  </sky-toolbar-section>
+  <sky-toolbar-section>
+    <sky-toolbar-item>
+      <span>Access tokens: </span>
+    </sky-toolbar-item>
+    <sky-toolbar-item *ngFor="let token of accessTokens">
+      <button
+        class="sky-btn"
+        type="button"
+        (click)="useAccessToken(token)"
+        [class.sky-btn-primary]="isSelectedToken(token.access_token)"
+        [class.sky-btn-default]="!isSelectedToken(token.access_token)"
+      >
+        {{ token.state }}
+      </button>
+    </sky-toolbar-item>
+  </sky-toolbar-section>
+</sky-toolbar>
+
+<app-constituent-detail [constituent]="constituent"></app-constituent-detail>
