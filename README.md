@@ -9,6 +9,24 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Development server
 
+If you are building your first Angular application, follow the instructions for setting up your local environment for Angular development. Below are some additional details you may find helpful for setting up your environment.
+
+Angular CLI
+SKY UX requires Angular CLI version 14. To check your version, run `ng version` from the command line. To install Angular CLI version 14, run `npm install -g @angular/cli@14`.
+
+Node.js
+SKY UX requires version 16.18.x of Node.js. To check your version, run `node -v` from the command line.
+
+In addition, SKY UX recommends Node Version Manager (NVM) to wrap your Node.js installation. NVM installs Node.js in your user directory to avoid permissions-related issues, and it also allows you to easily upgrade and manage multiple Node.js versions.
+
+For Mac OS X and Linux, follow the installation and update instructions in the README.md file for the NVM GitHub repo.
+For Windows, follow the installation and update instructions in the README.md file for the NVM for Windows GitHub repo.
+NPM
+
+SKY UX requires version 8.19.x of NPM, which is the default JavaScript package manager for Node.js. As of Node.js version 0.6.3, it is bundled and installed automatically with the environment. To check your version, run `npm -v` from the command line. To install a specific version, run npm install globally and specify the version. For example: `npm install -g npm@6`.
+
+Run `npm install` to install all the needed dependencies.
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:5000/`. The application will automatically reload if you change any of the source files.
 
 ## Using the application

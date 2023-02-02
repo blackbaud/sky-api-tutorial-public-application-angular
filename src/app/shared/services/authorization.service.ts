@@ -1,6 +1,6 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, retry, tap } from 'rxjs';
+import { Observable, tap } from 'rxjs';
 import { AccessToken } from '../models/access_token';
 import { AccessTokens } from '../models/access_tokens';
 import { AuthroizationResponse } from '../models/authorization-response';
@@ -11,7 +11,7 @@ import { StateService } from './state.service';
 
 @Injectable()
 export class AuthorizationService {
-  private clientId: string = '<SKY_APPLICATION_CLIENT_ID>'; //shared test application
+  private clientId: string = '<SKY_APPLICATION_CLIENT_ID>';
   private subscriptionKey: string = '<SKY_API_SUBSCRIPTION_KEY>';
   private redirectUri: string = 'http://localhost:5000/auth/callback';
 
@@ -35,7 +35,7 @@ export class AuthorizationService {
     const accessTokens: AccessTokens = !accessTokenString
       ? { tokens: [] }
       : (JSON.parse(accessTokenString) as AccessTokens);
-      
+
     return accessTokens;
   }
 
@@ -47,12 +47,10 @@ export class AuthorizationService {
     }
   }
 
-  public clearExpiredTokens(): void {
-    this.accessTokens = {
-      tokens: this.accessTokens.tokens.filter(
-        (token) => token.expires > new Date().toUTCString()
-      ),
-    };
+  public validAccessTokens(): AccessToken[] {
+    return this.accessTokens.tokens.filter(
+      (token) => token.expires > new Date().toUTCString()
+    );
   }
 
   public addAccessToken(exchangeResponse: ExchangeResponse): void {
@@ -66,10 +64,12 @@ export class AuthorizationService {
     let accesssTokens: AccessTokens = this.accessTokens?.tokens
       ? this.accessTokens
       : { tokens: [] };
+      
     const token = {
       access_token: exchangeResponse.access_token,
       state: exchangeResponse.state,
       expires: expires.toUTCString(),
+      environment_name: exchangeResponse.environment_name,
     };
 
     accesssTokens.tokens.push(token);
@@ -149,7 +149,6 @@ export class AuthorizationService {
         }),
       })
       .pipe(
-        retry(1),
         tap((result) => {
           result.state = authorizationResponse.state;
           localStorage.removeItem(result.state);

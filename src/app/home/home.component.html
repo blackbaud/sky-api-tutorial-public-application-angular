@@ -7,51 +7,65 @@
 </p>
 
 <p>
-  Access tokens expire after one hour. The end user will be forced to reauthorize to gain a new access token. 
+  Access tokens expire after one hour. The end user will be forced to
+  reauthorize to gain a new access token.
 </p>
-<sky-toolbar>
-  <sky-toolbar-section>
-    <sky-toolbar-item>
-      <span>Actions: </span>
-    </sky-toolbar-item>
-    <sky-toolbar-item>
-      <button
-        class="sky-btn sky-btn-primary"
-        type="button"
-        (click)="newAccessToken()"
-      >
-        <sky-icon icon="plus" class="sky-margin-inline-sm"></sky-icon>
-        <span>New access token</span>
-      </button>
-    </sky-toolbar-item>
-    <sky-toolbar-item>
-      <button
-        class="sky-btn sky-btn-default"
-        type="button"
-        (click)="clearAccessTokens()"
-      >
-        <sky-icon icon="trash" class="sky-margin-inline-sm"></sky-icon>
+<div class="sky-margin-stacked-xl">
+  <sky-toolbar>
+    <sky-toolbar-section>
+      <sky-toolbar-item>
+        <span>Actions: </span>
+      </sky-toolbar-item>
+      <sky-toolbar-item>
+        <button
+          class="sky-btn sky-btn-primary"
+          type="button"
+          (click)="newAccessToken()"
+        >
+          <sky-icon icon="plus" class="sky-margin-inline-sm"></sky-icon>
+          <span>New access token</span>
+        </button>
+      </sky-toolbar-item>
+      <sky-toolbar-item>
+        <button
+          class="sky-btn sky-btn-default"
+          type="button"
+          (click)="clearAccessTokens()"
+        >
+          <sky-icon icon="trash" class="sky-margin-inline-sm"></sky-icon>
 
-        <span>Clear access tokens</span>
-      </button>
-    </sky-toolbar-item>
-  </sky-toolbar-section>
-  <sky-toolbar-section>
-    <sky-toolbar-item>
-      <span>Access tokens: </span>
-    </sky-toolbar-item>
-    <sky-toolbar-item *ngFor="let token of accessTokens">
-      <button
-        class="sky-btn"
-        type="button"
-        (click)="useAccessToken(token)"
-        [class.sky-btn-primary]="isSelectedToken(token.access_token)"
-        [class.sky-btn-default]="!isSelectedToken(token.access_token)"
-      >
-        {{ token.state }}
-      </button>
-    </sky-toolbar-item>
-  </sky-toolbar-section>
-</sky-toolbar>
+          <span>Clear access tokens</span>
+        </button>
+      </sky-toolbar-item>
+    </sky-toolbar-section>
+    <sky-toolbar-section>
+      <sky-toolbar-item>
+        <span>Access tokens: </span>
+      </sky-toolbar-item>
+      <sky-toolbar-item *ngFor="let token of accessTokens">
+        <button
+          class="sky-btn"
+          type="button"
+          (click)="useAccessToken(token)"
+          [class.sky-btn-primary]="isSelectedToken(token.access_token)"
+          [class.sky-btn-default]="!isSelectedToken(token.access_token)"
+        >
+          <strong>{{ token.environment_name }}</strong>
+          <div style="font-size: 10px">
+            Exp: {{ token.expires | date : 'longTime' }}
+          </div>
+        </button>
+      </sky-toolbar-item>
+    </sky-toolbar-section>
+  </sky-toolbar>
+</div>
 
-<app-constituent-detail [constituent]="constituent"></app-constituent-detail>
+<sky-alert *ngIf="!!error" alertType="danger" class="sky-margin-stacked-lg">
+  <div><strong>There was an error loading the constituent data:</strong></div>
+  <div>{{ error }}</div>
+</sky-alert>
+
+<app-constituent-detail
+  [constituent]="constituent"
+  *ngIf="!!constituent && !error"
+></app-constituent-detail>

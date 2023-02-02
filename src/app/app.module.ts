@@ -26,6 +26,7 @@ import {
   SkyToolbarModule,
 } from '@skyux/layout';
 import { ConstituentDetailComponent } from './shared/components/constituent-detail/constituent-detail.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -37,6 +38,7 @@ import { ConstituentDetailComponent } from './shared/components/constituent-deta
   imports: [
     AppRoutingModule,
     BrowserModule,
+    CommonModule,
     HttpClientModule,
     SkyAlertModule,
     SkyBoxModule,

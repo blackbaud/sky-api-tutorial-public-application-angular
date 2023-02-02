@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { SkyWaitService } from '@skyux/indicators';
-import { catchError, finalize } from 'rxjs';
+import { catchError, finalize, of } from 'rxjs';
 import { AuthroizationResponse } from 'src/app/shared/models/authorization-response';
 import { AuthorizationService } from 'src/app/shared/services/authorization.service';
 
@@ -47,11 +47,12 @@ export class CallbackComponent implements OnInit {
           finalize(() => {
             this.waitService.endBlockingPageWait();
           }),
-          catchError((err, caught) => {
+          catchError((err) => {
             console.log(err);
             this.error = 'exchange_error';
-            this.errorMessage = 'There was an error exchanging the authorization code for an access token';
-            return caught;
+            this.errorMessage =
+              'There was an error exchanging the authorization code for an access token';
+            return of(undefined);
           })
         )
         .subscribe(() => {

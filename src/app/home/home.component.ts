@@ -1,7 +1,7 @@
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { SkyWaitService } from '@skyux/indicators';
-import { catchError, finalize, retry } from 'rxjs';
+import { catchError, finalize, of } from 'rxjs';
 import { AccessToken } from '../shared/models/access_token';
 import { Constituent } from '../shared/models/constituent';
 import { AuthorizationService } from '../shared/services/authorization.service';
@@ -13,6 +13,9 @@ import { ConstituentService } from '../shared/services/constituent.service';
 })
 export class HomeComponent implements OnInit {
   public constituent: Constituent | undefined;
+  public error: string | null = null;
+
+  // You may need to change this to a valid constituent ID in your environment
   private constituentId: string = '280';
 
   constructor(
@@ -22,8 +25,6 @@ export class HomeComponent implements OnInit {
   ) {}
 
   public ngOnInit(): void {
-    this.authorizationService.clearExpiredTokens();
-
     if (!this.hasAccessToken) {
       if (!!this.accessTokens && !!this.accessTokens[0]) {
         this.useAccessToken(this.accessTokens[0]);
@@ -39,11 +40,12 @@ export class HomeComponent implements OnInit {
     this.authorizationService.authorize();
   }
 
-  public get accessTokens(): AccessToken[] {    
-    return this.authorizationService.accessTokens.tokens.filter(token => token.expires > new Date().toUTCString());
+  public get accessTokens(): AccessToken[] {
+    return this.authorizationService.validAccessTokens();
   }
 
   public useAccessToken(token: AccessToken) {
+    this.error = null;
     this.authorizationService.accessToken = token;
     this.loadConstituent();
   }
@@ -51,7 +53,7 @@ export class HomeComponent implements OnInit {
   public clearAccessTokens(): void {
     this.authorizationService.accessTokens = null;
     this.authorizationService.accessToken = null;
-    this.authorizationService.authorize();
+    window.location.reload();
   }
 
   public get hasAccessToken(): boolean {
@@ -63,21 +65,23 @@ export class HomeComponent implements OnInit {
   }
 
   private loadConstituent() {
+    this.error = null;
     this.waitService.beginBlockingPageWait();
+
     this.constituentService.getConstituent(this.constituentId).pipe(
       finalize(() => {
         this.waitService.endBlockingPageWait();
       }),
-      retry(1),
-      catchError((err, caught) => {
-        if (err instanceof HttpErrorResponse && err.status === 401) {
+      catchError(response => {
+        if (response instanceof HttpErrorResponse && response.status === 401) {
           if (!!this.authorizationService.accessToken) {
             this.authorizationService.removeAccessToken(this.authorizationService.accessToken);
           }
           this.authorizationService.accessToken = null;
-          this.authorizationService.authorize();
+          window.location.reload();
         }
-        return caught;
+        this.error = response.error.detail;
+        return of(undefined);
       })
     ).subscribe(constituent => this.constituent = constituent);
   }
