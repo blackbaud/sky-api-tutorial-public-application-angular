@@ -1,0 +1,80 @@
+<sky-box>
+  <sky-box-header><h2>Constituent info</h2></sky-box-header>
+  <sky-box-content>
+    <p *ngIf="!hasAccessToken">Create or select an access token</p>
+    <sky-fluid-grid *ngIf="hasAccessToken && !!constituent">
+      <sky-row>
+        <sky-column [screenMedium]="5">
+          <span class="sky-font-heading-2">{{ constituent.title }} {{ constituent.name }}</span>
+          <sky-description-list mode="horizontal" class="sky-margin-stacked-sm">
+            <sky-description-list-content>
+              <sky-description-list-term> Income </sky-description-list-term>
+              <sky-description-list-description>
+                {{ constituent.income }}
+              </sky-description-list-description>
+            </sky-description-list-content>
+            <sky-description-list-content>
+              <sky-description-list-term> Gender </sky-description-list-term>
+              <sky-description-list-description>
+                {{ constituent.gender }}
+              </sky-description-list-description>
+            </sky-description-list-content>
+            <sky-description-list-content>
+              <sky-description-list-term> Age </sky-description-list-term>
+              <sky-description-list-description>
+                {{ constituent.age }}
+                <span *ngIf="birthdate"> ({{ birthdate }}) </span>
+              </sky-description-list-description>
+            </sky-description-list-content>
+            <sky-description-list-content>
+              <sky-description-list-term *ngIf="constituent.email">
+                Email
+              </sky-description-list-term>
+              <sky-description-list-description *ngIf="constituent.email">
+                {{ constituent.email.address }}
+                <sky-label labelType="success" *ngIf="constituent.email.primary"
+                  >Primary</sky-label
+                >
+              </sky-description-list-description>
+            </sky-description-list-content>
+          </sky-description-list>
+        </sky-column>
+        <sky-column [screenMedium]="4">
+          <sky-box *ngIf="constituent.address">
+            <sky-box-header> <h3>Address</h3> </sky-box-header>
+            <sky-box-content>
+              <strong>{{ constituent.address.type }}</strong>
+              <sky-label
+                labelType="success"
+                *ngIf="constituent.address.preferred"
+                >Preferred</sky-label
+              >
+              <div>{{ constituent.address.formatted_address }}</div>
+            </sky-box-content>
+          </sky-box>
+        </sky-column>
+      </sky-row>
+      <sky-row>
+        <sky-column [screenMedium]="9">
+          <br/>
+          <br/>
+          <sky-box>
+            <sky-box-header><h3>Constituent data</h3></sky-box-header>
+            <sky-box-content>
+              <button
+                type="button"
+                class="sky-btn sky-btn-link"
+                (click)="toggleShowJson()"
+              >
+                {{ showJson ? "Hide" : "Show" }} constituent data
+              </button>
+              <code *ngIf="hasAccessToken && !!constituent && showJson">
+                <pre>{{ constituent | json }}</pre>
+              </code>
+            </sky-box-content>
+          </sky-box>
+        </sky-column>
+      </sky-row>
+    </sky-fluid-grid>
+  </sky-box-content>
+</sky-box>
