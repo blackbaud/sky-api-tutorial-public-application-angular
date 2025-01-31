@@ -13,7 +13,7 @@ export class PkceService {
   public getPkce(): Pkce {
     const verifier = this.randomService.randomString(
       this.possibleChacters,
-      128
+      128,
     );
 
     const challenge = SHA256(verifier).toString(enc.Base64url);

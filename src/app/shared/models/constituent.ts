@@ -1,6 +1,6 @@
-import { ConstituentAddress } from "./constituent-address";
-import { ConstituentBirthday } from "./constituent-birthday";
-import { ConstituentEmail } from "./constituent-email";
+import { ConstituentAddress } from './constituent-address';
+import { ConstituentBirthday } from './constituent-birthday';
+import { ConstituentEmail } from './constituent-email';
 
 export interface Constituent {
   id: string;

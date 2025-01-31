@@ -5,8 +5,8 @@ import { CallbackComponent } from './auth/callback/callback.component';
 import { HomeComponent } from './home/home.component';
 
 const routes: Routes = [
-    { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-    { path: 'auth/callback', component: CallbackComponent }
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
+  { path: 'auth/callback', component: CallbackComponent },
 ];
 
 @NgModule({

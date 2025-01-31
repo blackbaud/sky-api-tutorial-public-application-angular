@@ -5,7 +5,9 @@
     <sky-fluid-grid *ngIf="hasAccessToken && !!constituent">
       <sky-row>
         <sky-column [screenMedium]="5">
-          <span class="sky-font-heading-2">{{ constituent.title }} {{ constituent.name }}</span>
+          <span class="sky-font-heading-2"
+            >{{ constituent.title }} {{ constituent.name }}</span
+          >
           <sky-description-list mode="horizontal" class="sky-margin-stacked-sm">
             <sky-description-list-content>
               <sky-description-list-term> Income </sky-description-list-term>
@@ -56,8 +58,8 @@
       </sky-row>
       <sky-row>
         <sky-column [screenMedium]="9">
-          <br/>
-          <br/>
+          <br />
+          <br />
           <sky-box>
             <sky-box-header><h3>Constituent data</h3></sky-box-header>
             <sky-box-content>
@@ -66,7 +68,7 @@
                 class="sky-btn sky-btn-link"
                 (click)="toggleShowJson()"
               >
-                {{ showJson ? "Hide" : "Show" }} constituent data
+                {{ showJson ? 'Hide' : 'Show' }} constituent data
               </button>
               <code *ngIf="hasAccessToken && !!constituent && showJson">
                 <pre>{{ constituent | json }}</pre>

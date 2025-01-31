@@ -21,7 +21,7 @@ export class CallbackComponent implements OnInit {
     private activatedRoute: ActivatedRoute,
     private authorizationService: AuthorizationService,
     private router: Router,
-    private waitService: SkyWaitService
+    private waitService: SkyWaitService,
   ) {}
 
   public ngOnInit(): void {
@@ -53,7 +53,7 @@ export class CallbackComponent implements OnInit {
             this.errorMessage =
               'There was an error exchanging the authorization code for an access token';
             return of(undefined);
-          })
+          }),
         )
         .subscribe(() => {
           this.router.navigate(['/']);

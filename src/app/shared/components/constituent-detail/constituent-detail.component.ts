@@ -24,6 +24,6 @@ export class ConstituentDetailComponent {
   }
 
   public toggleShowJson(): void {
-    this.showJson = !this.showJson; 
+    this.showJson = !this.showJson;
   }
 }
