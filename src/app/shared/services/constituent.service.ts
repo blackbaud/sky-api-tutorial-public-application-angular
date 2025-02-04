@@ -8,7 +8,7 @@ import { AuthorizationService } from './authorization.service';
 export class ConstituentService {
   constructor(
     private authorizationService: AuthorizationService,
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) {}
 
   public getConstituent(id: string): Observable<Constituent> {
@@ -16,7 +16,7 @@ export class ConstituentService {
       `https://api.sky.blackbaud.com/constituent/v1/constituents/${id}`,
       {
         headers: this.authorizationService.skyApiHeaders,
-      }
+      },
     );
   }
 }

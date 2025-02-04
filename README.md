@@ -1,10 +1,10 @@
 # Blackbaud SKY Developer Public Application using Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 14.2.10.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.2.14.
 
 ## Getting started
 
-1. Update the `clientId` and `subscriptionKey` variables in `shared/services/authorization.service.ts` to the keys obtained from your Developer Account and registered application. 
+1. Update the `clientId` and `subscriptionKey` variables in `shared/services/authorization.service.ts` to the keys obtained from your Developer Account and registered application.
 2. This example takes advantage of the SKY Developer Cohort. You may may need to change the `constituentId` in `home/home.component.ts` to a valid constituent ID from the environment you selected during OAuth Authorization.
 
 ## Development server
@@ -12,10 +12,10 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 If you are building your first Angular application, follow the instructions for setting up your local environment for Angular development. Below are some additional details you may find helpful for setting up your environment.
 
 Angular CLI
-SKY UX requires Angular CLI version 17. To check your version, run `ng version` from the command line. To install Angular CLI version 14, run `npm install -g @angular/cli@17`.
+SKY UX requires Angular CLI version 18. To check your version, run `ng version` from the command line. To install Angular CLI version 18, run `npm install -g @angular/cli@18`.
 
 Node.js
-SKY UX requires [Node.js version 18](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
+SKY UX requires [Node.js version 20](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
 
 In addition, SKY UX recommends Node Version Manager (NVM) to wrap your Node.js installation. NVM installs Node.js in your user directory to avoid permissions-related issues, and it also allows you to easily upgrade and manage multiple Node.js versions.
 
@@ -23,7 +23,7 @@ For Mac OS X and Linux, follow the installation and update instructions in the R
 For Windows, follow the installation and update instructions in the README.md file for the NVM for Windows GitHub repo.
 NPM
 
-SKY UX requires NPM version 9, which is the default JavaScript package manager for Node.js. As of Node.js version 0.6.3, it is bundled and installed automatically with the environment. To check your version, run `npm -v` from the command line. To install a specific version, run `npm install` globally and specify the version.
+SKY UX requires NPM version 10, which is the default JavaScript package manager for Node.js. As of Node.js version 0.6.3, it is bundled and installed automatically with the environment. To check your version, run `npm -v` from the command line. To install a specific version, run `npm install` globally and specify the version.
 
 Run `npm install` to install all the needed dependencies.
 

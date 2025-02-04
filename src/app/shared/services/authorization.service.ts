@@ -18,7 +18,7 @@ export class AuthorizationService {
   constructor(
     private httpClient: HttpClient,
     private pkceService: PkceService,
-    private stateService: StateService
+    private stateService: StateService,
   ) {}
 
   public get skyApiHeaders(): HttpHeaders {
@@ -49,7 +49,7 @@ export class AuthorizationService {
 
   public validAccessTokens(): AccessToken[] {
     return this.accessTokens.tokens.filter(
-      (token) => token.expires > new Date().toUTCString()
+      (token) => token.expires > new Date().toUTCString(),
     );
   }
 
@@ -64,7 +64,7 @@ export class AuthorizationService {
     let accesssTokens: AccessTokens = this.accessTokens?.tokens
       ? this.accessTokens
       : { tokens: [] };
-      
+
     const token = {
       access_token: exchangeResponse.access_token,
       state: exchangeResponse.state,
@@ -126,7 +126,7 @@ export class AuthorizationService {
   }
 
   public exchangeAuthorizationCode(
-    authorizationResponse: AuthroizationResponse
+    authorizationResponse: AuthroizationResponse,
   ): Observable<ExchangeResponse> {
     const verifier = localStorage.getItem(authorizationResponse.state);
 
@@ -153,7 +153,7 @@ export class AuthorizationService {
           result.state = authorizationResponse.state;
           localStorage.removeItem(result.state);
           this.addAccessToken(result);
-        })
+        }),
       );
   }
 

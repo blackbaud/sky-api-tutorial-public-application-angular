@@ -1,8 +1,8 @@
 <p *ngIf="!hasError">Processing authorization code...</p>
 
 <sky-alert alertType="danger" *ngIf="hasError">
-    There was a problem acquiring an access token.
-    <strong>{{ error }}</strong> - <span>{{ errorMessage }} </span>
+  There was a problem acquiring an access token.
+  <strong>{{ error }}</strong> - <span>{{ errorMessage }} </span>
 </sky-alert>
 
 <a routerLink="/">Back to the home page</a>

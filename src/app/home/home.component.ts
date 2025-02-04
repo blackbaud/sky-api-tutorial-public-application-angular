@@ -21,7 +21,7 @@ export class HomeComponent implements OnInit {
   constructor(
     private authorizationService: AuthorizationService,
     private constituentService: ConstituentService,
-    private waitService: SkyWaitService
+    private waitService: SkyWaitService,
   ) {}
 
   public ngOnInit(): void {
@@ -68,21 +68,29 @@ export class HomeComponent implements OnInit {
     this.error = null;
     this.waitService.beginBlockingPageWait();
 
-    this.constituentService.getConstituent(this.constituentId).pipe(
-      finalize(() => {
-        this.waitService.endBlockingPageWait();
-      }),
-      catchError(response => {
-        if (response instanceof HttpErrorResponse && response.status === 401) {
-          if (!!this.authorizationService.accessToken) {
-            this.authorizationService.removeAccessToken(this.authorizationService.accessToken);
+    this.constituentService
+      .getConstituent(this.constituentId)
+      .pipe(
+        finalize(() => {
+          this.waitService.endBlockingPageWait();
+        }),
+        catchError((response) => {
+          if (
+            response instanceof HttpErrorResponse &&
+            response.status === 401
+          ) {
+            if (!!this.authorizationService.accessToken) {
+              this.authorizationService.removeAccessToken(
+                this.authorizationService.accessToken,
+              );
+            }
+            this.authorizationService.accessToken = null;
+            window.location.reload();
           }
-          this.authorizationService.accessToken = null;
-          window.location.reload();
-        }
-        this.error = response.error.detail;
-        return of(undefined);
-      })
-    ).subscribe(constituent => this.constituent = constituent);
+          this.error = response.error.detail;
+          return of(undefined);
+        }),
+      )
+      .subscribe((constituent) => (this.constituent = constituent));
   }
 }

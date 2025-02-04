@@ -1,5 +1,8 @@
 import { NgModule } from '@angular/core';
-import { HttpClientModule } from '@angular/common/http';
+import {
+  provideHttpClient,
+  withInterceptorsFromDi,
+} from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppComponent } from './app.component';
@@ -11,9 +14,9 @@ import { AppRoutingModule } from './app-routing.module';
 import { PkceService } from './shared/services/pkce.service';
 import { CallbackComponent } from './auth/callback/callback.component';
 import { HomeComponent } from './home/home.component';
+import { SkyIconModule } from '@skyux/icon';
 import {
   SkyAlertModule,
-  SkyIconModule,
   SkyLabelModule,
   SkyTokensModule,
   SkyWaitModule,
@@ -35,11 +38,11 @@ import { CommonModule } from '@angular/common';
     HomeComponent,
     ConstituentDetailComponent,
   ],
+  bootstrap: [AppComponent],
   imports: [
     AppRoutingModule,
     BrowserModule,
     CommonModule,
-    HttpClientModule,
     SkyAlertModule,
     SkyBoxModule,
     SkyDescriptionListModule,
@@ -57,7 +60,7 @@ import { CommonModule } from '@angular/common';
     PkceService,
     RandomService,
     StateService,
+    provideHttpClient(withInterceptorsFromDi()),
   ],
-  bootstrap: [AppComponent],
 })
 export class AppModule {}
