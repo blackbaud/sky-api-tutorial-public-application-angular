@@ -22,7 +22,11 @@
           type="button"
           (click)="newAccessToken()"
         >
-          <sky-icon icon="plus" class="sky-margin-inline-sm"></sky-icon>
+          <sky-icon
+            size="md"
+            iconName="add"
+            class="sky-margin-inline-sm"
+          ></sky-icon>
           <span>New access token</span>
         </button>
       </sky-toolbar-item>
@@ -32,7 +36,11 @@
           type="button"
           (click)="clearAccessTokens()"
         >
-          <sky-icon icon="trash" class="sky-margin-inline-sm"></sky-icon>
+          <sky-icon
+            size="md"
+            iconName="delete"
+            class="sky-margin-inline-sm"
+          ></sky-icon>
 
           <span>Clear access tokens</span>
         </button>

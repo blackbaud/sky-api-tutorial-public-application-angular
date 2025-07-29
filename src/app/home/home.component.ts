@@ -10,6 +10,7 @@ import { ConstituentService } from '../shared/services/constituent.service';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
+  standalone: false,
 })
 export class HomeComponent implements OnInit {
   public constituent: Constituent | undefined;

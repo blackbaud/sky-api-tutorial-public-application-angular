@@ -8,6 +8,7 @@ import { AuthorizationService } from 'src/app/shared/services/authorization.serv
 @Component({
   selector: 'app-callback',
   templateUrl: './callback.component.html',
+  standalone: false,
 })
 export class CallbackComponent implements OnInit {
   public error: string | undefined;
