@@ -5,6 +5,7 @@ import { AuthorizationService } from '../../services/authorization.service';
 @Component({
   selector: 'app-constituent-detail',
   templateUrl: './constituent-detail.component.html',
+  standalone: false,
 })
 export class ConstituentDetailComponent {
   constructor(private authorizationService: AuthorizationService) {}
