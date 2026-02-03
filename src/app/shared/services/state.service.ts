@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { RandomService } from './random.service';
 
 @Injectable()
 export class StateService {
-  private possibleChacters: string = 'abcdefghijklmnopqrstuvwxyz0123456789';
+  private randomService = inject(RandomService);
 
-  constructor(private randomService: RandomService) {}
+  private possibleChacters = 'abcdefghijklmnopqrstuvwxyz0123456789';
 
-  public getState(length: number = 40): string {
+  public getState(length = 40): string {
     return this.randomService.randomString(this.possibleChacters, length);
   }
 }

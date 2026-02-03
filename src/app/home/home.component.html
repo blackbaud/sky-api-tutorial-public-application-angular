@@ -50,30 +50,35 @@
       <sky-toolbar-item>
         <span>Access tokens: </span>
       </sky-toolbar-item>
-      <sky-toolbar-item *ngFor="let token of accessTokens">
-        <button
-          class="sky-btn"
-          type="button"
-          (click)="useAccessToken(token)"
-          [class.sky-btn-primary]="isSelectedToken(token.access_token)"
-          [class.sky-btn-default]="!isSelectedToken(token.access_token)"
-        >
-          <strong>{{ token.environment_name }}</strong>
-          <div style="font-size: 10px">
-            Exp: {{ token.expires | date: 'longTime' }}
-          </div>
-        </button>
-      </sky-toolbar-item>
+      @for (token of accessTokens; track token.access_token) {
+        <sky-toolbar-item>
+          <button
+            class="sky-btn"
+            type="button"
+            (click)="useAccessToken(token)"
+            [class.sky-btn-primary]="isSelectedToken(token.access_token)"
+            [class.sky-btn-default]="!isSelectedToken(token.access_token)"
+          >
+            <strong>{{ token.environment_name }}</strong>
+            <div style="font-size: 10px">
+              Exp: {{ token.expires | date: 'longTime' }}
+            </div>
+          </button>
+        </sky-toolbar-item>
+      }
     </sky-toolbar-section>
   </sky-toolbar>
 </div>
 
-<sky-alert *ngIf="!!error" alertType="danger" class="sky-margin-stacked-lg">
-  <div><strong>There was an error loading the constituent data:</strong></div>
-  <div>{{ error }}</div>
-</sky-alert>
+@if (!!error) {
+  <sky-alert alertType="danger" class="sky-margin-stacked-lg">
+    <div><strong>There was an error loading the constituent data:</strong></div>
+    <div>{{ error }}</div>
+  </sky-alert>
+}
 
-<app-constituent-detail
-  [constituent]="constituent"
-  *ngIf="!!constituent && !error"
-></app-constituent-detail>
+@if (!!constituent && !error) {
+  <app-constituent-detail
+    [constituent]="constituent"
+  ></app-constituent-detail>
+}

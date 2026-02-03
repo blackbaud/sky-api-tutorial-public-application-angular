@@ -1,14 +1,14 @@
 import { Pkce } from '../models/pkce';
 import { RandomService } from './random.service';
 import { SHA256, enc } from 'crypto-js';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 @Injectable()
 export class PkceService {
-  private possibleChacters: string =
-    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
+  private randomService = inject(RandomService);
 
-  constructor(private randomService: RandomService) {}
+  private possibleChacters =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789-._~';
 
   public getPkce(): Pkce {
     const verifier = this.randomService.randomString(

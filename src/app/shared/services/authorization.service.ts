@@ -1,5 +1,5 @@
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 import { Observable, tap } from 'rxjs';
 import { AccessToken } from '../models/access_token';
 import { AccessTokens } from '../models/access_tokens';
@@ -11,15 +11,13 @@ import { StateService } from './state.service';
 
 @Injectable()
 export class AuthorizationService {
-  private clientId: string = '<SKY_APPLICATION_CLIENT_ID>';
-  private subscriptionKey: string = '<SKY_API_SUBSCRIPTION_KEY>';
-  private redirectUri: string = 'http://localhost:5000/auth/callback';
+  private httpClient = inject(HttpClient);
+  private pkceService = inject(PkceService);
+  private stateService = inject(StateService);
 
-  constructor(
-    private httpClient: HttpClient,
-    private pkceService: PkceService,
-    private stateService: StateService,
-  ) {}
+  private clientId = '<SKY_APPLICATION_CLIENT_ID>';
+  private subscriptionKey = '<SKY_API_SUBSCRIPTION_KEY>';
+  private redirectUri = 'http://localhost:5000/auth/callback';
 
   public get skyApiHeaders(): HttpHeaders {
     return new HttpHeaders({
@@ -58,10 +56,10 @@ export class AuthorizationService {
       return;
     }
 
-    let expires = new Date();
+    const expires = new Date();
     expires.setSeconds(expires.getSeconds() + exchangeResponse.expires_in);
 
-    let accesssTokens: AccessTokens = this.accessTokens?.tokens
+    const accesssTokens: AccessTokens = this.accessTokens?.tokens
       ? this.accessTokens
       : { tokens: [] };
 
@@ -79,7 +77,7 @@ export class AuthorizationService {
   }
 
   public removeAccessToken(token: AccessToken): void {
-    let cached = this.accessTokens;
+    const cached = this.accessTokens;
 
     if (!cached) {
       return;
@@ -165,7 +163,7 @@ export class AuthorizationService {
 
     localStorage.setItem(state, pkce.verifier);
 
-    (window as any).location.href = this.getAuthorizationUrl(state, pkce);
+    (window as Window).location.href = this.getAuthorizationUrl(state, pkce);
   }
 
   private getAuthorizationUrl(state: string, pkce: Pkce): string {
