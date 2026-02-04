@@ -25,42 +25,40 @@ import {
   SkyBoxModule,
   SkyDescriptionListModule,
   SkyFluidGridModule,
-  SkyPageModule,
   SkyToolbarModule,
 } from '@skyux/layout';
 import { ConstituentDetailComponent } from './shared/components/constituent-detail/constituent-detail.component';
 import { CommonModule } from '@angular/common';
+import { SkyPageModule } from '@skyux/pages';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    CallbackComponent,
-    HomeComponent,
-    ConstituentDetailComponent,
-  ],
-  bootstrap: [AppComponent],
-  imports: [
-    AppRoutingModule,
-    BrowserModule,
-    CommonModule,
-    SkyAlertModule,
-    SkyBoxModule,
-    SkyDescriptionListModule,
-    SkyFluidGridModule,
-    SkyIconModule,
-    SkyLabelModule,
-    SkyPageModule,
-    SkyTokensModule,
-    SkyToolbarModule,
-    SkyWaitModule,
-  ],
-  providers: [
-    AuthorizationService,
-    ConstituentService,
-    PkceService,
-    RandomService,
-    StateService,
-    provideHttpClient(withInterceptorsFromDi()),
-  ],
+    bootstrap: [AppComponent],
+    imports: [
+        AppRoutingModule,
+        BrowserModule,
+        CommonModule,
+        SkyAlertModule,
+        SkyBoxModule,
+        SkyDescriptionListModule,
+        SkyFluidGridModule,
+        SkyIconModule,
+        SkyLabelModule,
+        SkyPageModule,
+        SkyTokensModule,
+        SkyToolbarModule,
+        SkyWaitModule,
+        CallbackComponent,
+        HomeComponent,
+        ConstituentDetailComponent,
+        AppComponent,
+    ],
+    providers: [
+        AuthorizationService,
+        ConstituentService,
+        PkceService,
+        RandomService,
+        StateService,
+        provideHttpClient(withInterceptorsFromDi()),
+    ],
 })
 export class AppModule {}

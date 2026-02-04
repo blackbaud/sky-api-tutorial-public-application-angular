@@ -1,29 +1,39 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit } from '@angular/core';
-import { SkyWaitService } from '@skyux/indicators';
+import { Component, OnInit, inject } from '@angular/core';
+import { SkyWaitService, SkyAlertModule } from '@skyux/indicators';
 import { catchError, finalize, of } from 'rxjs';
 import { AccessToken } from '../shared/models/access_token';
 import { Constituent } from '../shared/models/constituent';
 import { AuthorizationService } from '../shared/services/authorization.service';
 import { ConstituentService } from '../shared/services/constituent.service';
+import { SkyToolbarModule } from '@skyux/layout';
+import { SkyIconModule } from '@skyux/icon';
+import { DatePipe } from '@angular/common';
+import { SkyThemeComponentClassDirective } from '@skyux/theme';
+import { ConstituentDetailComponent } from '../shared/components/constituent-detail/constituent-detail.component';
 
 @Component({
-  selector: 'app-home',
-  templateUrl: './home.component.html',
-  standalone: false,
+    selector: 'app-home',
+    templateUrl: './home.component.html',
+    imports: [
+        SkyToolbarModule,
+        SkyIconModule,
+        SkyThemeComponentClassDirective,
+        SkyAlertModule,
+        ConstituentDetailComponent,
+        DatePipe,
+    ],
 })
 export class HomeComponent implements OnInit {
+  private authorizationService = inject(AuthorizationService);
+  private constituentService = inject(ConstituentService);
+  private waitService = inject(SkyWaitService);
+
   public constituent: Constituent | undefined;
   public error: string | null = null;
 
   // You may need to change this to a valid constituent ID in your environment
-  private constituentId: string = '280';
-
-  constructor(
-    private authorizationService: AuthorizationService,
-    private constituentService: ConstituentService,
-    private waitService: SkyWaitService,
-  ) {}
+  private constituentId = '280';
 
   public ngOnInit(): void {
     if (!this.hasAccessToken) {
@@ -80,7 +90,7 @@ export class HomeComponent implements OnInit {
             response instanceof HttpErrorResponse &&
             response.status === 401
           ) {
-            if (!!this.authorizationService.accessToken) {
+            if (this.authorizationService.accessToken) {
               this.authorizationService.removeAccessToken(
                 this.authorizationService.accessToken,
               );

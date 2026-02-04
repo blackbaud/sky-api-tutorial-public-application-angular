@@ -1,35 +1,38 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { SkyWaitService } from '@skyux/indicators';
+import { Component, OnInit, inject } from '@angular/core';
+import { ActivatedRoute, Router, RouterLink } from '@angular/router';
+import { SkyWaitService, SkyAlertModule } from '@skyux/indicators';
 import { catchError, finalize, of } from 'rxjs';
 import { AuthroizationResponse } from 'src/app/shared/models/authorization-response';
 import { AuthorizationService } from 'src/app/shared/services/authorization.service';
+import { SkyThemeComponentClassDirective } from '@skyux/theme';
 
 @Component({
-  selector: 'app-callback',
-  templateUrl: './callback.component.html',
-  standalone: false,
+    selector: 'app-callback',
+    templateUrl: './callback.component.html',
+    imports: [
+        SkyThemeComponentClassDirective,
+        SkyAlertModule,
+        RouterLink,
+    ],
 })
 export class CallbackComponent implements OnInit {
+  private activatedRoute = inject(ActivatedRoute);
+  private authorizationService = inject(AuthorizationService);
+  private router = inject(Router);
+  private waitService = inject(SkyWaitService);
+
   public error: string | undefined;
   public errorMessage: string | undefined;
-  public isWaiting: boolean = true;
+  public isWaiting = true;
   public get hasError(): boolean {
     return !!this.error;
   }
-
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private authorizationService: AuthorizationService,
-    private router: Router,
-    private waitService: SkyWaitService,
-  ) {}
 
   public ngOnInit(): void {
     this.activatedRoute.queryParams.subscribe((params) => {
       this.error = params['error'];
 
-      if (!!this.error) {
+      if (this.error) {
         this.errorMessage = params['error_message'];
         this.authorizationService.removeState(params['state']);
         return;
