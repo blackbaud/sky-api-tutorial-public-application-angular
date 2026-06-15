@@ -1,11 +1,11 @@
 # Blackbaud SKY Developer Public Application using Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 21.2.17.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 21.2.15.
 
 ## Getting started
 
 1. Update the `clientId` and `subscriptionKey` variables in `shared/services/authorization.service.ts` to the keys obtained from your Developer Account and registered application.
-2. This example takes advantage of the SKY Developer Cohort. You may may need to change the `constituentId` in `home/home.component.ts` to a valid constituent ID from the environment you selected during OAuth Authorization.
+2. This example takes advantage of the SKY Developer Cohort. You may need to change the `constituentId` in `home/home.component.ts` to a valid constituent ID from the environment you selected during OAuth Authorization.
 
 ## Development server
 
