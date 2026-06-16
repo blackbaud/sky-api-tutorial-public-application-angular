@@ -1,21 +1,21 @@
 # Blackbaud SKY Developer Public Application using Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 20.2.14.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 21.2.15.
 
 ## Getting started
 
 1. Update the `clientId` and `subscriptionKey` variables in `shared/services/authorization.service.ts` to the keys obtained from your Developer Account and registered application.
-2. This example takes advantage of the SKY Developer Cohort. You may may need to change the `constituentId` in `home/home.component.ts` to a valid constituent ID from the environment you selected during OAuth Authorization.
+2. This example takes advantage of the SKY Developer Cohort. You may need to change the `constituentId` in `home/home.component.ts` to a valid constituent ID from the environment you selected during OAuth Authorization.
 
 ## Development server
 
 If you are building your first Angular application, follow the instructions for setting up your local environment for Angular development. Below are some additional details you may find helpful for setting up your environment.
 
 Angular CLI
-SKY UX requires Angular CLI version 20. To check your version, run `ng version` from the command line. To install Angular CLI version 20, run `npm install -g @angular/cli@20`.
+SKY UX requires Angular CLI version 21. To check your version, run `ng version` from the command line. To install Angular CLI version 21, run `npm install -g @angular/cli@21`.
 
 Node.js
-SKY UX requires [Node.js version 20](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
+SKY UX requires [Node.js version 22](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
 
 In addition, SKY UX recommends Node Version Manager (NVM) to wrap your Node.js installation. NVM installs Node.js in your user directory to avoid permissions-related issues, and it also allows you to easily upgrade and manage multiple Node.js versions.
 

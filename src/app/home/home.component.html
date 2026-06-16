@@ -10,7 +10,7 @@
   Access tokens expire after one hour. The end user will be forced to
   reauthorize to gain a new access token.
 </p>
-<div class="sky-margin-stacked-xl">
+<div class="sky-theme-margin-bottom-xl">
   <sky-toolbar>
     <sky-toolbar-section>
       <sky-toolbar-item>
@@ -25,7 +25,7 @@
           <sky-icon
             size="md"
             iconName="add"
-            class="sky-margin-inline-sm"
+            class="sky-theme-margin-right-s"
           ></sky-icon>
           <span>New access token</span>
         </button>
@@ -39,7 +39,7 @@
           <sky-icon
             size="md"
             iconName="delete"
-            class="sky-margin-inline-sm"
+            class="sky-theme-margin-right-s"
           ></sky-icon>
 
           <span>Clear access tokens</span>
@@ -71,7 +71,7 @@
 </div>
 
 @if (!!error) {
-  <sky-alert alertType="danger" class="sky-margin-stacked-lg">
+  <sky-alert alertType="danger" class="sky-theme-margin-bottom-l">
     <div><strong>There was an error loading the constituent data:</strong></div>
     <div>{{ error }}</div>
   </sky-alert>
