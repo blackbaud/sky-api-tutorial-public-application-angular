@@ -15,7 +15,7 @@ Angular CLI
 SKY UX requires Angular CLI version 22. To check your version, run `ng version` from the command line. To install Angular CLI version 22, run `npm install -g @angular/cli@22`.
 
 Node.js
-SKY UX requires [Node.js version 22](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
+SKY UX requires [Node.js version 22.22.3 or later within 22.x](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
 
 In addition, SKY UX recommends Node Version Manager (NVM) to wrap your Node.js installation. NVM installs Node.js in your user directory to avoid permissions-related issues, and it also allows you to easily upgrade and manage multiple Node.js versions.
 
