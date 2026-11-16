@@ -1,6 +1,6 @@
 # Blackbaud SKY Developer Public Application using Angular
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 21.2.15.
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 22.2.7.
 
 ## Getting started
 
@@ -12,7 +12,7 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 If you are building your first Angular application, follow the instructions for setting up your local environment for Angular development. Below are some additional details you may find helpful for setting up your environment.
 
 Angular CLI
-SKY UX requires Angular CLI version 21. To check your version, run `ng version` from the command line. To install Angular CLI version 21, run `npm install -g @angular/cli@21`.
+SKY UX requires Angular CLI version 22. To check your version, run `ng version` from the command line. To install Angular CLI version 22, run `npm install -g @angular/cli@22`.
 
 Node.js
 SKY UX requires [Node.js version 22](https://nodejs.org/en/download/releases/). To check your version, run `node -v` from the command line.
