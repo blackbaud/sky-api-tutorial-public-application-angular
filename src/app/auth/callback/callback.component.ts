@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { ActivatedRoute, Router, RouterLink } from '@angular/router';
 import { SkyWaitService, SkyAlertModule } from '@skyux/indicators';
 import { catchError, finalize, of } from 'rxjs';
@@ -9,6 +9,7 @@ import { SkyThemeComponentClassDirective } from '@skyux/theme';
 @Component({
     selector: 'app-callback',
     templateUrl: './callback.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         SkyThemeComponentClassDirective,
         SkyAlertModule,

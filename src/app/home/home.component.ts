@@ -1,5 +1,5 @@
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectionStrategy } from '@angular/core';
 import { SkyWaitService, SkyAlertModule } from '@skyux/indicators';
 import { catchError, finalize, of } from 'rxjs';
 import { AccessToken } from '../shared/models/access_token';
@@ -15,6 +15,7 @@ import { ConstituentDetailComponent } from '../shared/components/constituent-det
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         SkyToolbarModule,
         SkyIconModule,

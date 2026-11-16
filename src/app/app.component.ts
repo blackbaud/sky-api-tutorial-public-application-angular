@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { SkyPageModule } from '@skyux/pages';
 import { SkyFluidGridModule } from '@skyux/layout';
@@ -7,6 +7,7 @@ import { SkyFluidGridModule } from '@skyux/layout';
   selector: 'app-root',
   templateUrl: './app.component.html',
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.Eager,
   imports: [RouterOutlet, SkyPageModule, SkyFluidGridModule],
 })
 export class AppComponent {

@@ -1,11 +1,10 @@
-<sky-box>
-  <sky-box-header><h2>Constituent info</h2></sky-box-header>
+<sky-box headingText="Constituent info">
   <sky-box-content>
     @if (!hasAccessToken) {
       <p>Create or select an access token</p>
     }
     @if (hasAccessToken && !!constituent) {
-      <sky-fluid-grid>
+      <sky-fluid-grid inset>
       <sky-row>
         <sky-column [screenMedium]="5">
           <span class="sky-theme-font-heading-2"
@@ -54,8 +53,7 @@
         </sky-column>
         <sky-column [screenMedium]="4">
           @if (constituent.address) {
-            <sky-box>
-              <sky-box-header> <h3>Address</h3> </sky-box-header>
+            <sky-box headingText="Address" headingLevel="3" headingStyle="3">
               <sky-box-content>
                 <strong>{{ constituent.address.type }}</strong>
                 @if (constituent.address.preferred) {
@@ -74,8 +72,7 @@
         <sky-column [screenMedium]="9">
           <br />
           <br />
-          <sky-box>
-            <sky-box-header><h3>Constituent data</h3></sky-box-header>
+          <sky-box headingText="Constituent data" headingLevel="3" headingStyle="3">
             <sky-box-content>
               <button
                 type="button"

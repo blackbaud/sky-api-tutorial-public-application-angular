@@ -1,4 +1,4 @@
-import { Component, Input, inject } from '@angular/core';
+import { Component, Input, inject, ChangeDetectionStrategy } from '@angular/core';
 import { Constituent } from '../../models/constituent';
 import { AuthorizationService } from '../../services/authorization.service';
 import { SkyBoxModule, SkyFluidGridModule, SkyDescriptionListModule } from '@skyux/layout';
@@ -8,6 +8,7 @@ import { SkyLabelModule } from '@skyux/indicators';
 @Component({
     selector: 'app-constituent-detail',
     templateUrl: './constituent-detail.component.html',
+    changeDetection: ChangeDetectionStrategy.Eager,
     imports: [
         SkyBoxModule,
         SkyFluidGridModule,
